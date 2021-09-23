@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { BuilderPage } from "./components/Builder";
 import axios from "axios";
 
 const App = () => {
@@ -22,7 +21,7 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={BuilderPage} />
+        <h1>React app </h1>
       </Switch>
     </Router>
   );
