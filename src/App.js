@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BuilderPage } from "./components/Builder";
+import axios from "axios";
 
-function App() {
+const App = () => {
+  const api = `${process.env.REACT_APP_COMMERCETOOLS_API}`;
+  const oauthToken = `${process.env.REACT_APP_AUTH_TOKEN}`;
+
+  useEffect(() => {
+    let config = {
+      headers: {
+        Authorization: "Bearer " + oauthToken,
+      },
+    };
+
+    axios.get(api, config).then((response) => {
+      console.log(response.data.results);
+    });
+  }, [oauthToken, api]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" component={BuilderPage} />
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
