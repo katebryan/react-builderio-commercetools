@@ -1,28 +1,34 @@
-import { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Security, LoginCallback, SecureRoute } from "@okta/okta-react";
+import { OktaAuth } from "@okta/okta-auth-js";
+import Home from "./components/Home";
+import Entry from "./components/Entry";
+
+const CALLBACK_PATH = "/login/callback";
+const oktaClientId = process.env.REACT_APP_OKTA_CLIENT;
+const oktaIssuer = process.env.REACT_APP_OKTA_ISSUER;
+const oktaRedirectUri = process.env.REACT_APP_OKTA_REDIRECT_URI;
+
+const config = {
+  clientId: oktaClientId,
+  issuer: oktaIssuer,
+  redirectUri: oktaRedirectUri,
+  scopes: ["openid", "profile", "email"],
+  pkce: true,
+};
+
+const oktaAuth = new OktaAuth(config);
 
 const App = () => {
-  const api = `${process.env.REACT_APP_COMMERCETOOLS_API}`;
-  const oauthToken = `${process.env.REACT_APP_AUTH_TOKEN}`;
-
-  useEffect(() => {
-    let config = {
-      headers: {
-        Authorization: "Bearer " + oauthToken,
-      },
-    };
-
-    axios.get(api, config).then((response) => {
-      console.log(response.data.results);
-    });
-  }, [oauthToken, api]);
-
   return (
     <Router>
-      <Switch>
-        <h1>React app </h1>
-      </Switch>
+      <Security oktaAuth={oktaAuth} restoreOriginalUri="/login">
+        <Switch>
+          <Route path="/login" component={Entry} />
+          <Route path={CALLBACK_PATH} component={LoginCallback} />
+          <SecureRoute path="/" component={Home} />
+        </Switch>
+      </Security>
     </Router>
   );
 };
