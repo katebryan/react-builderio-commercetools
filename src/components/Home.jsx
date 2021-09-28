@@ -6,15 +6,14 @@ const Home = () => {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    if (!authState.isAuthenticated) {
-      // When user isn't authenticated, forget any user info
+    if (!authState?.isAuthenticated) {
       setUserInfo(null);
     } else {
-      oktaAuth.getUserInfo().then(info => {
+      oktaAuth.getUser().then((info) => {
         setUserInfo(info);
       });
     }
-  }, [authState, oktaAuth]); // Update if authState changes
+  }, [authState, oktaAuth]);
 
   return (
     <div>
