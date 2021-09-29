@@ -1,13 +1,28 @@
-const express = require("express");
-const app = express();
-const port = 8080; // default port to listen
+dotenv = require("dotenv");
+express = require("express");
+cors = require("cors");
+const { oktaAuthRequired } = require("./lib/oktaAuthRequired");
 
-// define a route handler for the default home page
-app.get("/", (req, res) => {
-  res.send("Hello world!");
+dotenv.config({
+  path: ".env",
 });
 
-// start the Express server
-app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+const app = express();
+const PORT = process.env.APP_PORT;
+
+app.use(cors());
+
+app.get("/api/locked", oktaAuthRequired, (req, res) => {
+  res.json({
+    messages: [
+      {
+        date: new Date(),
+        text: "Unauthorised access, locked route",
+      },
+    ],
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`We are LIVE on http://localhost:${process.env.APP_PORT}`);
 });
