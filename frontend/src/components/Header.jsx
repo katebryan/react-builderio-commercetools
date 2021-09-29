@@ -5,7 +5,8 @@ export const Header = () => {
   const { authState, oktaAuth } = useOktaAuth();
   const history = useHistory();
 
-  const login = async () => oktaAuth.signInWithRedirect();
+  const login = async () =>
+    oktaAuth.signInWithRedirect({ originalUri: "/dashboard" });
   const logout = async () => {
     const basename =
       window.location.origin + history.createHref({ pathname: "/" });

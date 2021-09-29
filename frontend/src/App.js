@@ -29,7 +29,7 @@ const App = () => {
     <Security restoreOriginalUri={restoreOriginalUri} oktaAuth={oktaAuth}>
       <Header />
       <Switch>
-        <Route path="/" exact component={LandingPage} />
+        <Route exact path="/" component={LandingPage} />
         <Route path="/login/callback" component={LoginCallback} />
         <SecureRoute path="/dashboard" component={Home} />
       </Switch>
