@@ -12,12 +12,23 @@ const PORT = process.env.APP_PORT;
 
 app.use(cors());
 
-app.get("/api/locked", oktaAuthRequired, (req, res) => {
+app.get("/api/locked", oktaAuthRequired, (_, res) => {
   res.json({
     messages: [
       {
         date: new Date(),
-        text: "Unauthorised access, locked route",
+        text: "No unauthorised access, locked route",
+      },
+    ],
+  });
+});
+
+app.get("/api/unlocked", (_, res) => {
+  res.json({
+    messages: [
+      {
+        date: new Date(),
+        text: "No authorisation required!",
       },
     ],
   });
