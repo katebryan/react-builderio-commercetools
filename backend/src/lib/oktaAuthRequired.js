@@ -13,6 +13,7 @@ const oktaAuthRequired = (req, res, next) => {
 
   const accessToken = match[1];
   const audience = `${OKTA_AUDIENCE}`;
+
   return oktaJwtVerifier
     .verifyAccessToken(accessToken, audience)
     .then((jwt) => {

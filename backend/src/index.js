@@ -31,5 +31,5 @@ app.get("/api/unlocked", (_, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Live on http://localhost:${process.env.APP_PORT}`);
+  console.log(`Live on http://localhost:${PORT}`);
 });

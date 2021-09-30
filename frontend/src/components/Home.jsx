@@ -17,7 +17,6 @@ const Home = () => {
   }, [authState, oktaAuth]);
 
   const callBackend = async () => {
-    console.log(authState.accessToken.accessToken, "*********");
     const response = await fetch("http://localhost:8080/api/locked", {
       headers: {
         Authorization: `Bearer ${authState.accessToken.accessToken}`,
@@ -25,7 +24,6 @@ const Home = () => {
     });
 
     if (!response.ok) {
-      console.log("rejecting", response);
       return Promise.reject();
     }
     const data = await response.json();
