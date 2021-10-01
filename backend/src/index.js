@@ -13,7 +13,7 @@ app.get("/api/locked", oktaAuthRequired, (_, res) => {
     messages: [
       {
         date: new Date(),
-        text: "No unauthorised access, locked route",
+        text: "Welcome in, you have access!!!",
       },
     ],
   });
