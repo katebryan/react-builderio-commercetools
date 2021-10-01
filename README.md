@@ -11,4 +11,7 @@ _backend_
 
 _frontend_
 
--
+- select `Applications` from the dropdown.
+- click on `Create app integration` -> `OIDC - OpenID Connect` -> `Single-Page Application`.
+- set up your application with the details of the ports you are running your project off (found in `Security` -> `API` -> `Trusted Origins` -> `Add Origin`).
+- in the `SPA Login` section add the `Sign-in redirect URI: http://localhost:PORT/login/callback`
