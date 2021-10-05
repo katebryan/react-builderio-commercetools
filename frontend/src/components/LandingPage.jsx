@@ -26,7 +26,20 @@ export const LandingPage = () => {
         <>
           <div>Welcome to my store</div>
           {products.map((product) => (
-            <h4 key={product.id}>{product.masterData.current.name.en}</h4>
+            <div key={product.id}>
+              <h4>{product.masterData.current.name.en}</h4>
+              {product.masterData.current.description ? (
+                <h5>{product.masterData.current.description.en}</h5>
+              ) : null}
+              {product.masterData.current.masterVariant.images[0] ? (
+                <img
+                  src={product.masterData.current.masterVariant.images[0].url}
+                  alt={product.masterData.current.name.en}
+                  width="100px"
+                  height="100px"
+                />
+              ) : null}
+            </div>
           ))}
         </>
       ) : null}
